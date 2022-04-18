@@ -5,6 +5,10 @@
       <h5>{{ item.title }}</h5>
       <h4 class="cart-price">{{ `Price: $${item.price}` }}</h4>
     </div>
+    <div class="cart-details">
+      <h3>Total cart value:</h3>
+      <h3 class="cart-price">{{ `$${getTotalPrice()}` }}</h3>
+    </div>
   </div>
 </template>
 
@@ -20,6 +24,13 @@ export default class Cart extends Vue {
   public mounted(): void {
     const pro = localStorage.getItem("cart") as string;
     this.products = JSON.parse(pro);
+  }
+
+  public getTotalPrice(): number {
+    const total = this.products
+      .map((item) => item.price)
+      .reduce((prev, curr) => prev + curr);
+    return total;
   }
 }
 </script>
