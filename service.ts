@@ -12,8 +12,20 @@ export async function getAllProduct() {
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export async function getproductByCategory(category: string) {
+  const response = await productApi.get(`products/category/${category}`);
+  return response.data;
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export async function getSingleProduct(id: number) {
   const response = await productApi.get(`/products/${id}`);
+  return response.data;
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export async function getAllCategory() {
+  const response = await productApi.get("products/categories");
   return response.data;
 }
 

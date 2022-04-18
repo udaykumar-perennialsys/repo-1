@@ -1,5 +1,14 @@
 <template>
   <div>
+    <div class="sort-product">
+      <select @change="productCat()" class="sorts">
+        <option value="All">Search Product by Category(ALL)</option>
+        <option value="men's clothing">Men's Clothing</option>
+        <option value="women's clothing">Women's clothing</option>
+        <option value="jewelery">Jewelery</option>
+        <option value="electronics">Electronics</option>
+      </select>
+    </div>
     <Loader v-if="isLoading" />
     <div v-else class="product-container">
       <div class="product" v-for="(product, index) in allProduct" :key="index">
@@ -40,8 +49,10 @@ export default class Home extends Vue {
   public allProduct: Products[] = [];
   public cart: Products[] = [];
   public isLoading = false;
+  public productCategory: string[] = [];
   public mounted(): void {
     this.getProductDetail();
+    this.getProductCategory();
   }
 
   public async getProductDetail(): Promise<void> {
@@ -51,6 +62,32 @@ export default class Home extends Vue {
       this.allProduct = Product.allProducts;
     } catch (error) {
       // console.log(error)
+    } finally {
+      this.isLoading = false;
+    }
+  }
+  public async getProductCategory(): Promise<void> {
+    try {
+      //
+      const response = await Product.getProductCategory();
+      this.productCategory = response;
+    } catch (error) {
+      //
+    }
+  }
+
+  public async productCat(): Promise<void> {
+    const elem = event?.target as HTMLInputElement;
+    this.isLoading = true;
+    try {
+      if (elem.value !== "All") {
+        await Product.getProductByCategory(elem.value);
+        this.allProduct = Product.allProducts;
+      } else {
+        this.getProductDetail();
+      }
+    } catch (error) {
+      console.log(error);
     } finally {
       this.isLoading = false;
     }
@@ -76,6 +113,18 @@ export default class Home extends Vue {
 </script>
 
 <style>
+.sort-product {
+  width: 78vw;
+  margin: auto;
+  display: flex;
+}
+.sorts {
+  width: 250px;
+  height: 50px;
+}
+option {
+  padding: 10px !important;
+}
 .product-container {
   display: grid;
   grid-template: "div div div";
