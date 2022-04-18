@@ -37,6 +37,9 @@ export default class Navbar extends Vue {}
   padding: 30px 50px;
   box-shadow: 0 1px 3px #000000;
   margin-bottom: 50px;
+  position: sticky;
+  top: 0;
+  background: white;
 }
 .logo {
   float: left;
