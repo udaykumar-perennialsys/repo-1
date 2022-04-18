@@ -50,6 +50,7 @@ export default class Home extends Vue {
   public cart: Products[] = [];
   public isLoading = false;
   public productCategory: string[] = [];
+
   public mounted(): void {
     this.getProductDetail();
     this.getProductCategory();
