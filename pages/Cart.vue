@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div v-if="products.length !== 0">
     <div v-for="item in products" :key="item.id" class="cart-details">
+      <p>{{ item.count }} X</p>
       <img :src="item.image" alt="" />
       <h5>{{ item.title }}</h5>
       <h4 class="cart-price">{{ `Price: $${item.price}` }}</h4>
@@ -9,6 +10,9 @@
       <h3>Total cart value:</h3>
       <h3 class="cart-price">{{ `$${getTotalPrice()}` }}</h3>
     </div>
+  </div>
+  <div v-else>
+    <h1>No Result</h1>
   </div>
 </template>
 
@@ -21,16 +25,21 @@ import { Products } from "../interface";
 })
 export default class Cart extends Vue {
   public products: Products[] = [];
+  public count = 0;
   public mounted(): void {
     const pro = localStorage.getItem("cart") as string;
     this.products = JSON.parse(pro);
+    console.log(this.products);
+  }
+  public catItems(): void {
+    this.products.find((item) => item.id === item.id);
   }
 
-  public getTotalPrice(): number {
+  public getTotalPrice(): string {
     const total = this.products
       .map((item) => item.price)
       .reduce((prev, curr) => prev + curr);
-    return total;
+    return total.toFixed(2);
   }
 }
 </script>

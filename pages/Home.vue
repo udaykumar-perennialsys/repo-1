@@ -3,10 +3,14 @@
     <div class="sort-product">
       <select @change="productCat()" class="sorts">
         <option value="All">Search Product by Category(ALL)</option>
-        <option value="men's clothing">Men's Clothing</option>
-        <option value="women's clothing">Women's clothing</option>
-        <option value="jewelery">Jewelery</option>
-        <option value="electronics">Electronics</option>
+        <option
+          v-for="(item, index) in productCategory.reverse()"
+          :key="index"
+          :value="item"
+          class="select-option"
+        >
+          {{ item }}
+        </option>
       </select>
     </div>
     <Loader v-if="isLoading" />
@@ -50,6 +54,9 @@ export default class Home extends Vue {
   public cart: Products[] = [];
   public isLoading = false;
   public productCategory: string[] = [];
+  public cartItems = localStorage.getItem("cart") as string;
+  public cartProducts = JSON.parse(this.cartItems) || [];
+  public allCartItem: Products[] = [];
 
   public mounted(): void {
     this.getProductDetail();
@@ -103,12 +110,11 @@ export default class Home extends Vue {
   }
 
   public addToCart(product: Products): void {
-    !this.cart.includes(product)
-      ? this.cart.push(product)
-        ? alert("Item added to cart")
-        : ""
-      : alert("This product is already in your cart");
-    localStorage.setItem("cart", JSON.stringify(this.cart));
+    product.count === undefined ? (product.count = 1) : product.count;
+    !this.cartProducts.includes(product)
+      ? this.cartProducts.push(product)
+      : (product.count = product.count + 1);
+    localStorage.setItem("cart", JSON.stringify(this.cartProducts));
   }
 }
 </script>
@@ -182,6 +188,9 @@ option {
   border-radius: 8px;
   border: none;
   outline: none;
+}
+.select-option {
+  text-transform: capitalize;
 }
 /* loader */
 </style>

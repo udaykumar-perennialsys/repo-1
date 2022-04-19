@@ -43,6 +43,7 @@ export default class ProductDetail extends Vue {
       rate: 0,
       count: 0,
     },
+    count: 0,
   };
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
