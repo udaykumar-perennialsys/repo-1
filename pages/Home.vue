@@ -95,7 +95,7 @@ export default class Home extends Vue {
         this.getProductDetail();
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     } finally {
       this.isLoading = false;
     }

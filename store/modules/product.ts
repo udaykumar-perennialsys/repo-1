@@ -46,7 +46,6 @@ class ProductsModule extends VuexModule {
   }
 
   public updateProductCtaegory(category: string[]) {
-    console.log(category);
     this.productCategory = category;
   }
 

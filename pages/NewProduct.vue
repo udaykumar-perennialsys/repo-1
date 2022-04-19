@@ -36,7 +36,6 @@ export default class NewProduct extends Vue {
 
   public async productCat(): Promise<void> {
     const elem = event?.target as HTMLInputElement;
-    console.log(elem.value);
     if (elem.value !== "All") {
       this.category = elem.value;
     } else {
@@ -64,7 +63,7 @@ export default class NewProduct extends Vue {
         await Product.addNewProduct(newProduct);
         alert("Product added successfully");
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       } finally {
         this.title = "";
         this.price = "";

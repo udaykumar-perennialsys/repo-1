@@ -29,7 +29,7 @@ export default class Cart extends Vue {
   public mounted(): void {
     const pro = localStorage.getItem("cart") as string;
     this.products = JSON.parse(pro);
-    console.log(this.products);
+    // console.log(this.products);
   }
   public catItems(): void {
     this.products.find((item) => item.id === item.id);
