@@ -32,6 +32,7 @@ class ProductsModule extends VuexModule {
       rate: 0,
       count: 0,
     },
+    count: 0,
   };
   public productCategory: string[] = [];
 
