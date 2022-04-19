@@ -9,7 +9,6 @@ import { Products, RequestBodyProduct } from "../../interface";
 import store from "../../store";
 import {
   addNewProduct,
-  getAllCategory,
   getAllProduct,
   getproductByCategory,
   getSingleProduct,
@@ -45,9 +44,9 @@ class ProductsModule extends VuexModule {
     this.singleProduct = product;
   }
 
-  public updateProductCtaegory(category: string[]) {
-    this.productCategory = category;
-  }
+  // public updateProductCtaegory(category: string[]) {
+  //   this.productCategory = category;
+  // }
 
   @Action({ commit: "updateProdectDetail" })
   async getAllProducts() {
@@ -69,11 +68,11 @@ class ProductsModule extends VuexModule {
     const response = await addNewProduct(product);
     return response;
   }
-  @Action({ commit: "updateProductCtaegory" })
-  async getProductCategory() {
-    const category = await getAllCategory();
-    return category;
-  }
+  // @Action({ commit: "updateProductCtaegory" })
+  // async getProductCategory() {
+  //   const category = await getAllCategory();
+  //   return category;
+  // }
 }
 
 export default getModule(ProductsModule);

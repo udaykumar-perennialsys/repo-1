@@ -3,14 +3,10 @@
     <div class="sort-product">
       <select @change="productCat()" class="sorts">
         <option value="All">Search Product by Category(ALL)</option>
-        <option
-          v-for="(item, index) in productCategory.reverse()"
-          :key="index"
-          :value="item"
-          class="select-option"
-        >
-          {{ item }}
-        </option>
+        <option value="men's clothing">Men's Clothing</option>
+        <option value="women's clothing">Women's clothing</option>
+        <option value="jewelery">Jewelery</option>
+        <option value="electronics">Electronics</option>
       </select>
     </div>
     <Loader v-if="isLoading" />
@@ -60,7 +56,7 @@ export default class Home extends Vue {
 
   public mounted(): void {
     this.getProductDetail();
-    this.getProductCategory();
+    // this.getProductCategory();
   }
 
   public async getProductDetail(): Promise<void> {
@@ -74,15 +70,15 @@ export default class Home extends Vue {
       this.isLoading = false;
     }
   }
-  public async getProductCategory(): Promise<void> {
-    try {
-      //
-      const response = await Product.getProductCategory();
-      this.productCategory = response;
-    } catch (error) {
-      //
-    }
-  }
+  // public async getProductCategory(): Promise<void> {
+  //   try {
+  //     //
+  //     const response = await Product.getProductCategory();
+  //     this.productCategory = response;
+  //   } catch (error) {
+  //     //
+  //   }
+  // }
 
   public async productCat(): Promise<void> {
     const elem = event?.target as HTMLInputElement;
@@ -95,7 +91,7 @@ export default class Home extends Vue {
         this.getProductDetail();
       }
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     } finally {
       this.isLoading = false;
     }
@@ -188,9 +184,6 @@ option {
   border-radius: 8px;
   border: none;
   outline: none;
-}
-.select-option {
-  text-transform: capitalize;
 }
 /* loader */
 </style>

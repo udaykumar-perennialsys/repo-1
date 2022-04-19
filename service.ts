@@ -24,10 +24,10 @@ export async function getSingleProduct(id: number) {
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export async function getAllCategory() {
-  const response = await productApi.get("products/categories");
-  return response.data;
-}
+// export async function getAllCategory() {
+//   const response = await productApi.get("products/categories");
+//   return response.data;
+// }
 
 export async function addNewProduct(
   product: RequestBodyProduct
