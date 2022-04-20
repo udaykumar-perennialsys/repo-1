@@ -69,13 +69,13 @@ export default class ProductDetail extends Vue {
 .detail-container {
   width: 60vw;
   height: 70vh;
-  border: 1px solid black;
   place-items: center;
   margin: auto;
   display: flex;
   justify-content: space-between;
   gap: 20px;
   box-shadow: 0 1px 3px #000000;
+  margin-bottom: 100px;
 }
 .product-img {
   flex: 1;
@@ -83,7 +83,8 @@ export default class ProductDetail extends Vue {
   justify-content: center;
 }
 .p-image {
-  max-width: 250px;
+  width: 50%;
+  height: 50%;
 }
 .product-details {
   padding: 10px 0px;
@@ -99,5 +100,17 @@ export default class ProductDetail extends Vue {
 .product-details div:nth-child(1) {
   text-decoration: underline;
   font-size: 18px;
+}
+
+@media (max-width: 768px) {
+  .detail-container {
+    height: auto;
+    flex-direction: column;
+    padding: 50px 20px;
+  }
+  .p-image {
+    width: 200px;
+    height: 250px;
+  }
 }
 </style>
