@@ -107,7 +107,6 @@ a {
 
   .router-link-exact-active {
     color: #fff;
-    background: teal;
     padding: 0px;
     border-radius: 0px;
     padding-bottom: 10px;

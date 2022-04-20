@@ -168,7 +168,7 @@ option {
 .product-image {
   width: 150px;
   height: 150px;
-  border-radius: 50%;
+  /* border-radius: 50%; */
 }
 .product-description {
   display: -webkit-box;
