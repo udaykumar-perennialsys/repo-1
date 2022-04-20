@@ -2,7 +2,7 @@
   <div>
     <div class="sort-product">
       <select @change="productCat()" class="sorts">
-        <option value="All">Search Product by Category(ALL)</option>
+        <option value="All">Search Product by Category</option>
         <option value="men's clothing">Men's Clothing</option>
         <option value="women's clothing">Women's clothing</option>
         <option value="jewelery">Jewelery</option>
@@ -107,9 +107,17 @@ export default class Home extends Vue {
 
   public addToCart(product: Products): void {
     product.count === undefined ? (product.count = 1) : product.count;
-    !this.cartProducts.includes(product)
-      ? this.cartProducts.push(product)
-      : (product.count = product.count + 1);
+    this.cartProducts.forEach((item: Products) => {
+      if (item.id === product.id) {
+        item.count += 1;
+        return;
+      } else {
+        this.cartProducts.push(product);
+      }
+    });
+    // !this.cartProducts.find(product.id)
+    //   ? this.cartProducts.push(product)
+    //   : (product.count = product.count + 1);
     localStorage.setItem("cart", JSON.stringify(this.cartProducts));
   }
 }
@@ -117,13 +125,18 @@ export default class Home extends Vue {
 
 <style>
 .sort-product {
-  width: 78vw;
+  width: 300px;
   margin: auto;
-  display: flex;
+  margin-bottom: 20px;
 }
 .sorts {
-  width: 250px;
+  width: 300px;
   height: 50px;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0px 1px 3px black;
+  font-size: 18px;
+  outline: none;
 }
 option {
   padding: 10px !important;
@@ -131,12 +144,12 @@ option {
 .product-container {
   display: grid;
   grid-template: "div div div";
-  padding: 50px 150px;
+  place-items: center;
   grid-gap: 20px;
+  margin-bottom: 100px;
 }
 .product {
-  max-width: 300px;
-  min-width: 200px;
+  width: 300px;
   padding: 20px 10px;
   display: flex;
   align-items: center;

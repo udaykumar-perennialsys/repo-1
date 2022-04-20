@@ -1,18 +1,18 @@
 <template>
   <div v-if="products.length !== 0">
     <div v-for="item in products" :key="item.id" class="cart-details">
-      <p>{{ item.count }} X</p>
       <img :src="item.image" alt="" />
       <h5>{{ item.title }}</h5>
       <h4 class="cart-price">{{ `Price: $${item.price}` }}</h4>
+      <h4 class="cart-price">{{ `Qantity: ${item.count}` }}</h4>
     </div>
     <div class="cart-details">
       <h3>Total cart value:</h3>
       <h3 class="cart-price">{{ `$${getTotalPrice()}` }}</h3>
     </div>
   </div>
-  <div v-else>
-    <h1>No Result</h1>
+  <div v-else class="no-result">
+    <small>No Result</small>
   </div>
 </template>
 
@@ -63,5 +63,8 @@ export default class Cart extends Vue {
 }
 .cart-price {
   min-width: 150px;
+}
+.no-result {
+  text-align: center;
 }
 </style>
