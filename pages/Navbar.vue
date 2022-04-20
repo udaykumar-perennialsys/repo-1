@@ -101,6 +101,9 @@ a {
   .full-navbar {
     display: none;
   }
+  .logo-comp {
+    background: transparent;
+  }
 
   .router-link-exact-active {
     color: #fff;

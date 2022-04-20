@@ -37,7 +37,7 @@ export default class Cart extends Vue {
 
   public getTotalPrice(): string {
     const total = this.products
-      .map((item) => item.price)
+      .map((item) => item.price * item.count)
       .reduce((prev, curr) => prev + curr);
     return total.toFixed(2);
   }
@@ -62,9 +62,15 @@ export default class Cart extends Vue {
   height: 100px;
 }
 .cart-price {
-  min-width: 150px;
+  min-width: 120px;
 }
 .no-result {
   text-align: center;
+}
+
+@media (max-width: 768px) {
+  .cart-details {
+    flex-direction: column;
+  }
 }
 </style>

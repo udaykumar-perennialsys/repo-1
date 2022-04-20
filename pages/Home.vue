@@ -107,17 +107,9 @@ export default class Home extends Vue {
 
   public addToCart(product: Products): void {
     product.count === undefined ? (product.count = 1) : product.count;
-    this.cartProducts.forEach((item: Products) => {
-      if (item.id === product.id) {
-        item.count += 1;
-        return;
-      } else {
-        this.cartProducts.push(product);
-      }
-    });
-    // !this.cartProducts.find(product.id)
-    //   ? this.cartProducts.push(product)
-    //   : (product.count = product.count + 1);
+    !this.cartProducts.includes(product)
+      ? this.cartProducts.push(product)
+      : (product.count = product.count + 1);
     localStorage.setItem("cart", JSON.stringify(this.cartProducts));
   }
 }
