@@ -75,6 +75,7 @@ export default class ProductDetail extends Vue {
   justify-content: space-between;
   gap: 20px;
   box-shadow: 0 1px 3px #000000;
+  border-radius: 8px;
   margin-bottom: 100px;
 }
 .product-img {
