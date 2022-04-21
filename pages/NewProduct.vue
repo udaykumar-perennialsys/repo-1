@@ -1,5 +1,11 @@
 <template>
   <div class="new-product-container">
+    <Notification
+      v-if="showNotification"
+      :type="toast"
+      :title="notification"
+      :message="messageProduct"
+    />
     <input type="text" placeholder="Product title" v-model="title" />
     <input type="text" placeholder="Product price" v-model="price" />
     <input
@@ -24,8 +30,14 @@
 </template>
 
 <script lang="ts">
-import { Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import Product from "@/framework/sub-modules/store/modules/product";
+import Notification from "../components/Notification.vue";
+@Component({
+  components: {
+    Notification,
+  },
+})
 export default class NewProduct extends Vue {
   public title = "";
   public price = "";
@@ -33,6 +45,10 @@ export default class NewProduct extends Vue {
   public image = "";
   public category = "";
   public isLoading = false;
+  public showNotification = false;
+  public messageProduct = "Product added successfully";
+  public notification = "Success";
+  public type = "success";
 
   public async productCat(): Promise<void> {
     const elem = event?.target as HTMLInputElement;
@@ -61,7 +77,8 @@ export default class NewProduct extends Vue {
       this.isLoading = true;
       try {
         await Product.addNewProduct(newProduct);
-        alert("Product added successfully");
+        this.showNotification = true;
+        // alert("Product added successfully");
       } catch (error) {
         //console.log(error);
       } finally {
@@ -134,5 +151,15 @@ export default class NewProduct extends Vue {
   border-bottom: 1px solid black;
   border-radius: 8px;
   color: rgb(79, 77, 77);
+}
+@media (max-width: 768px) {
+  .new-product-container {
+    padding: 40px 20px;
+    width: 80%;
+    margin: auto;
+  }
+  .new-product-container select {
+    width: 90%;
+  }
 }
 </style>

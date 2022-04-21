@@ -1,5 +1,11 @@
 <template>
   <div>
+    <Notification
+      v-if="cartisLoading"
+      :type="toast"
+      :message="message"
+      :title="title"
+    />
     <div class="sort-product">
       <select @change="productCat()" class="sorts">
         <option value="All">Search Product by Category</option>
@@ -25,7 +31,10 @@
           {{ `Price:- $${product.price}/-` }}
         </div>
         <div>
-          <button class="add-to-cart-btn" @click="addToCart(product)">
+          <button class="add-to-cart-btn" v-if="cartisLoading">
+            <i v-if="cartisLoading" class="fa fa-spinner fa-spin"></i>
+          </button>
+          <button v-else class="add-to-cart-btn" @click="addToCart(product)">
             Add to cart
           </button>
         </div>
@@ -40,19 +49,25 @@ import Product from "@/framework/sub-modules/store/modules/product";
 import { Products } from "../interface";
 import router from "@/router";
 import Loader from "../components/Loader.vue";
+import Notification from "../components/Notification.vue";
 @Component({
   components: {
     Loader,
+    Notification,
   },
 })
 export default class Home extends Vue {
   public allProduct: Products[] = [];
   public cart: Products[] = [];
   public isLoading = false;
+  public cartisLoading = false;
   public productCategory: string[] = [];
   public cartItems = localStorage.getItem("cart") as string;
   public cartProducts = JSON.parse(this.cartItems) || [];
   public allCartItem: Products[] = [];
+  public type = "toast";
+  public message = "Item added to cart";
+  public title = "Success!";
 
   public mounted(): void {
     this.getProductDetail();
@@ -106,14 +121,19 @@ export default class Home extends Vue {
   }
 
   public addToCart(product: Products): void {
+    this.cartisLoading = true;
     product.count === undefined ? (product.count = 1) : product.count;
     !this.cartProducts.includes(product)
       ? this.cartProducts.push(product)
-        ? alert("Item is added to cart")
+        ? setTimeout(() => {
+            this.cartisLoading = false;
+          }, 2000)
         : ""
       : // eslint-disable-next-line no-cond-assign
       (product.count = product.count + 1)
-      ? alert("Item is added to cart")
+      ? setTimeout(() => {
+          this.cartisLoading = false;
+        }, 2000)
       : "";
     localStorage.setItem("cart", JSON.stringify(this.cartProducts));
   }
