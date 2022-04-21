@@ -27,10 +27,6 @@
           <router-link to="/cart">Cart</router-link>
         </div>
       </div>
-
-      <!-- <div class="ham-burger">
-        <font-awesome-icon icon="fa-solid fa-bars" />
-      </div> -->
     </div>
   </div>
 </template>
